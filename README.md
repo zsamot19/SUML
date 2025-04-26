@@ -1,6 +1,7 @@
 # Aplikacja do szacowania ceny mieszkania
 
-Aplikacja webowa umożliwiająca wprowadzenie parametrów mieszkania w celu oszacowania jego ceny. Obecna wersja zawiera interfejs użytkownika do zbierania danych wejściowych, natomiast funkcjonalność predykcji cen jest w trakcie rozwoju.
+Aplikacja Streamlit, która umożliwia użytkownikowi oszacowanie ceny mieszkania na podstawie wprowadzonych parametrów. Model AI działa **lokalnie** i nie wymaga połączenia z internetem.
+Model to klasyfikator regresyjny RandomForestRegressor, wytrenowany na syntetycznych danych opisujących mieszkania w Warszawie. Dane, na których trenowany był model są sytentyczne przez co nie mają odzwierciedlenia w rzeczywistości.
 
 ## Technologie
 - [Streamlit](https://streamlit.io/)

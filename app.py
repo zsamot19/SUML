@@ -13,7 +13,6 @@ def predict_price(model, feature_names, input_data: dict):
     df = pd.DataFrame([input_data])
     df_encoded = pd.get_dummies(df)
 
-    # Dodaj brakujące kolumny, jeśli potrzeba
     for col in feature_names:
         if col not in df_encoded.columns:
             df_encoded[col] = 0
@@ -22,32 +21,6 @@ def predict_price(model, feature_names, input_data: dict):
     prediction = model.predict(df_encoded)[0]
     return round(prediction, 2)
 
-
-import streamlit as st
-import joblib
-import pandas as pd
-import os
-
-# --- Funkcje ---
-@st.cache_resource
-def load_model():
-    model = joblib.load(os.path.join("model", "model.joblib"))
-    feature_names = joblib.load(os.path.join("model", "feature_names.joblib"))
-    return model, feature_names
-
-def predict_price(model, feature_names, input_data: dict):
-    df = pd.DataFrame([input_data])
-    df_encoded = pd.get_dummies(df)
-
-    for col in feature_names:
-        if col not in df_encoded.columns:
-            df_encoded[col] = 0
-
-    df_encoded = df_encoded[feature_names]
-    prediction = model.predict(df_encoded)[0]
-    return round(prediction, 2)
-
-# --- Aplikacja Streamlit ---
 st.title("Szacowanie ceny mieszkania")
 
 model, feature_names = load_model()
