@@ -14,3 +14,9 @@ with st.form(key="parametry_mieszkania"):
     pressed_button = st.form_submit_button(label="Wyślij")
     if pressed_button:
         st.warning("Wkrótce dostępne")
+        
+st.title("AI Odpowiadacz (Streamlit)")
+question = st.text_input("Zadaj pytanie:")
+
+if question:
+    st.write(f"Odpowiedź: To jest przykładowa odpowiedź na pytanie '{question}'.")
