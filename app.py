@@ -7,11 +7,15 @@ from datetime import datetime
 import json
 
 AZURE_STORAGE_CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-CONTAINER_NAME = "storagesuml"
+CONTAINER_NAME = "app-data"
 
 def save_to_blob(input_data: dict, output_data: str):
     blob_service_client = BlobServiceClient.from_connection_string(AZURE_STORAGE_CONNECTION_STRING)
     container_client = blob_service_client.get_container_client(CONTAINER_NAME)
+    try:
+        container_client.create_container()
+    except Exception:
+        pass
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     folder_name = f"{timestamp}/"
