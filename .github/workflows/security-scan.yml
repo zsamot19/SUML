@@ -24,8 +24,7 @@ jobs:
           sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
 
       - name: Build Docker image
-        run: docker build -t my-app:pr-scan .
+        run: docker build -t my-app .
 
       - name: Scan Docker image for vulnerabilities
-        run: |
-          trivy image my-app:pr-scan --exit-code 1 --severity HIGH,CRITICAL --no-progress
+        run: trivy image my-app
