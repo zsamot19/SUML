@@ -7,7 +7,7 @@ from datetime import datetime
 import json
 
 AZURE_STORAGE_CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-CONTAINER_NAME = "app-data"
+CONTAINER_NAME = "storagesuml"
 
 def save_to_blob(input_data: dict, output_data: str):
     blob_service_client = BlobServiceClient.from_connection_string(AZURE_STORAGE_CONNECTION_STRING)
