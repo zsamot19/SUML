@@ -2,6 +2,22 @@ import streamlit as st
 import joblib
 import pandas as pd
 import os
+from azure.storage.blob import BlobServiceClient
+from datetime import datetime
+import json
+
+AZURE_STORAGE_CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+CONTAINER_NAME = "app-data"
+
+def save_to_blob(input_data: dict, output_data: str):
+    blob_service_client = BlobServiceClient.from_connection_string(AZURE_STORAGE_CONNECTION_STRING)
+    container_client = blob_service_client.get_container_client(CONTAINER_NAME)
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    folder_name = f"{timestamp}/"
+
+    container_client.upload_blob(name=f"{folder_name}input.json", data=json.dumps(input_data), overwrite=True)
+    container_client.upload_blob(name=f"{folder_name}output.txt", data=str(output_data), overwrite=True)
 
 @st.cache_resource
 def load_model():
@@ -51,4 +67,5 @@ with st.form(key="parametry_mieszkania"):
             "wyposazenie": wyposazenie
         }
         cena = predict_price(model, feature_names, input_data)
+        save_to_blob(input_data, cena)
         st.success(f"Szacowana cena mieszkania: {cena:,.2f} zł")
