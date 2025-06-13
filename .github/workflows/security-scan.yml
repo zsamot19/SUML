@@ -28,7 +28,4 @@ jobs:
 
       - name: Scan Docker image for vulnerabilities
         run: |
-          trivy image my-app:pr-scan \
-            --exit-code 1 \
-            --severity HIGH,CRITICAL \
-            --no-progress
+          trivy image my-app:pr-scan --exit-code 1 --severity HIGH,CRITICAL --no-progress
